@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.google.gson.Gson
-import com.hegazy.ebtikar.adapters.CoverFlowAdapter
+import com.hegazy.ebtikar.adapters.PersonImagesAdapter
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPeopleDetailsBinding
 import com.hegazy.ebtikar.model.PeopleResponse
@@ -27,11 +27,12 @@ import timber.log.Timber
 
 class PersonDetailsFragment : Fragment() {
     private lateinit var viewDataBinding: FragmentPeopleDetailsBinding
-    private var mAdapter: CoverFlowAdapter? = null
+    private var mAdapter: PersonImagesAdapter? = null
     val model by viewModel<DetailsViewModel>()
     val gson = Gson()
     var peopleItem: PeopleResponse.Result? = null
     var dialog: AlertDialog? = null
+    private lateinit var mAdapterPersonImages: PersonImagesAdapter
 
 
     override fun onCreateView(
@@ -53,7 +54,7 @@ class PersonDetailsFragment : Fragment() {
 
         getPassedPersonId()
 
-        mAdapter = CoverFlowAdapter(requireActivity())
+        mAdapter = PersonImagesAdapter(requireActivity())
         mAdapter!!.setData(mData)
         coverflow.adapter = mAdapter
         coverflow.setOnItemClickListener { parent, view, position, id ->
