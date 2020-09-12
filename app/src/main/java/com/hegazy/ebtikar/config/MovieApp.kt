@@ -3,10 +3,15 @@ package com.hegazy.ebtikar.config
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import com.hegazy.ebtikar.BuildConfig
+import com.hegazy.ebtikar.koin.appModule
 import com.hegazy.ebtikar.koin.viewModelModule
+import com.hegazy.ebtikar.repo.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import timber.log.Timber
 
 class MovieApp : Application() {
 
@@ -23,11 +28,20 @@ class MovieApp : Application() {
         instance = this
         context = applicationContext
 
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
+
+        var listofModules = module {
+            single { NetworkModule() }
+        }
+
 
         startKoin {
             androidLogger()
             androidContext(context)
-            modules(viewModelModule)
+//            modules(listOf(listofModules, viewModelModule))
+            modules(listOf(appModule, viewModelModule))
         }
 
     }

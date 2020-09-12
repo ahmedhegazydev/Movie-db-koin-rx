@@ -1,14 +1,16 @@
 package com.hegazy.ebtikar.adapters
 
 import android.annotation.SuppressLint
-import android.content.ClipData
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.model.PeopleItem
+import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -18,11 +20,13 @@ class PopularPeoplesAdapter(
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<PopularPeoplesAdapter.ViewHolder>() {
 
     var isLoading = false
-    private var items: MutableList<ClipData.Item> = mutableListOf()
+    private var items: MutableList<PeopleResponse.Result> = mutableListOf()
 
 
-    fun setItems(itemsList: MutableList<ClipData.Item>) {
+    fun setItems(itemsList: MutableList<PeopleResponse.Result>) {
         items = itemsList
+        notifyDataSetChanged()
+
     }
 
 
@@ -38,7 +42,7 @@ class PopularPeoplesAdapter(
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = items[position]
 
-        viewHolder.setGroceryItem(item)
+        viewHolder.setPeopleItem(item)
 
     }
 
@@ -53,12 +57,15 @@ class PopularPeoplesAdapter(
         var textViewName: TextView = itemView.findViewById(R.id.text_view_name)
 
         @SuppressLint("SetTextI18n")
-        fun setGroceryItem(item: ClipData.Item) {
+        fun setPeopleItem(item: PeopleResponse.Result) {
 
-//            clIncrementOnly.visibility = View.VISIBLE
-//            tvName.text = item.name
-//            tvDetails.text = item.unitOfMeasure
-
+            Glide
+                .with(context)
+                .load(NetworkConstants.BASE_IMAGE_PATH + item.profile_path)
+//                .apply(options)
+                .placeholder(R.drawable.will_smith)
+                .into(imageViewProfile)
+            textViewName.text = item.name
 
         }
 

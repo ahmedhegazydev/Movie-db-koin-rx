@@ -156,6 +156,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.squareup.retrofit2:converter-moshi:2.5.0"
 
 
     //rxjava
@@ -170,6 +171,10 @@ dependencies {
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+
+//Moshi
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
 
 
 

@@ -1,6 +1,7 @@
 package com.hegazy.ebtikar.repo
 
 
+import android.util.Log
 import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants.clientSideError
 import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants.forbidden
 import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants.genericError
@@ -17,13 +18,16 @@ import javax.net.ssl.SSLHandshakeException
 
 open class BaseRepository {
 
+    companion object {
+        val TAG = BaseRepository::class.java.name
+    }
+
     protected suspend fun <T : Any> callApi(call: suspend () -> Response<T>): Any {
         try {
-
             val response = call.invoke()
-
             if (response.isSuccessful) {
                 response.body()?.let { apiResponse ->
+                    Log.e(TAG, "callApi: 1")
                     return APICallResult.Success(apiResponse) //a.k.a 200
                 } ?: run {
                     return APICallResult.Success(successWithoutBody) //a.k.a 204
@@ -37,13 +41,17 @@ open class BaseRepository {
             }
 
         } catch (exception: Exception) {
+//            Log.e(TAG, "callApi: exc" )
             return when (exception) {
                 is UnknownHostException -> APICallResult.Error(
                     unknownHostException
                 )
                 is SocketTimeoutException -> APICallResult.Error(socketTimeoutException)
                 is SSLHandshakeException -> APICallResult.Error(sslHandshakeException)
-                else -> APICallResult.Error(genericException)
+                else -> {
+                    APICallResult.Error(genericException)
+                    Log.e(TAG, "callApi: exc" + exception.localizedMessage)
+                }
             }
         }
 

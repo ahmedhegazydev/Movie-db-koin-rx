@@ -7,4 +7,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <!--parent="android:Theme.DeviceDefault.Dialog"-->
+    <style name="CustomSpotDialog" parent="android:Theme.DeviceDefault.Light.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Loading…</item>
+        <item name="DialogSpotCount">4</item>
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="android:background">@drawable/white_rounded_corners</item>
+    </style>
+
 </resources>

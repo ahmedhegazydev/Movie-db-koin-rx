@@ -1,40 +1,69 @@
 package com.hegazy.ebtikar.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class PeopleResponse {
+class PeopleResponse : Serializable {
     @SerializedName("page")
     val page: Int = 0
 
+    @SerializedName("total_results")
+    val total_results: Int = 0
 
-    @SerializedName("page")
-    val page: Int = 0
-    ]
-    @SerializedName("message")
-    val message: String = ""
+    @SerializedName("total_pages")
+    val total_pages: Int = 0
 
-    @SerializedName("response")
-    val response: Response = Response()
+    @SerializedName("results")
+    val results: MutableList<Result> = mutableListOf()
 
-    inner class Response {
-        @SerializedName("pageIndex")
-        val pageIndex: Int = 0
+    inner class Result : Serializable {
+        @SerializedName("name")
+        val name: String = ""
 
-        @SerializedName("totalPages")
-        val totalPages: Int = 0
+        @SerializedName("profile_path")
+        val profile_path: String = ""
 
-        @SerializedName("totalCount")
-        val totalCount: Int = 0
+        @SerializedName("known_for_department")
+        val known_for_department: String = ""
 
-        @SerializedName("hasPreviousPage")
-        val hasPreviousPage: Boolean = false
+        @SerializedName("popularity")
+        val popularity: Float = 0f
 
-        @SerializedName("hasNextPage")
-        val hasNextPage: Boolean = true
 
-        @SerializedName("items")
-        val items: MutableList<PeopleItem> = mutableListOf()
+        @SerializedName("id")
+        val id: Int = 0
 
+        @SerializedName("adult")
+        val adult: Boolean = false
+
+
+        @SerializedName("known_for")
+        val knownFor: MutableList<KnownFor> = mutableListOf()
+
+        inner class KnownFor : Serializable {
+
+
+            @SerializedName("title")
+            val title: String = ""
+
+            @SerializedName("release_date")
+            val release_date: String = ""
+
+            @SerializedName("original_title")
+            val original_title: String = ""
+
+
+            @SerializedName("backdrop_path")
+            val backdrop_path: String = ""
+
+            @SerializedName("overview")
+            val overview: String = ""
+
+            @SerializedName("poster_path")
+            val poster_path: String = ""
+
+
+        }
 
     }
 

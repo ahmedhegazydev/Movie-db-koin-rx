@@ -9,10 +9,11 @@ import retrofit2.http.Query
 interface ApiEndpointInterface {
 
 
-    @GET("person/popular?api_key=242d544fe443aa59e56d47a3d5f2d6c4&language=en-US")
+    @GET("person/popular?api_key=242d544fe443aa59e56d47a3d5f2d6c4&language=en-US&page=")
+//    @GET("person/popular?api_key=242d544fe443aa59e56d47a3d5f2d6c4&language=en-US")
     fun getPopularPeoples(
-        @Query("PageIndex") PageIndex: Int,
-        @Query("PageSize") PageSize: Int
+//        @Path("page") PageIndex: Int
+        @Query("page") PageIndex: Int
     ): Deferred<Response<PeopleResponse>>
 
 
