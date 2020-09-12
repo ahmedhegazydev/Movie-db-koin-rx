@@ -48,7 +48,6 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         dialog = setupDialog(requireActivity())
 
 
-
     }
 
     private fun setupUI() {
@@ -135,6 +134,7 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         viewHolder: PopularPeoplesAdapter.ViewHolder
     ) {
 
+        Timber.d("Person_id = ${item.id}")
         val bundle = Bundle()
         bundle.putString("peopleItem", gson.toJson(item, PeopleResponse.Result::class.java))
         (requireActivity() as MainActivity).navigateTo(R.id.personDetailsFragment, bundle)

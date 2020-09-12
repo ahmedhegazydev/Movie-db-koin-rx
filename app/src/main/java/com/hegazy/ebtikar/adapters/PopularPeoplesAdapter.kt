@@ -18,9 +18,7 @@ class PopularPeoplesAdapter(
     private val context: Context
 ) : androidx.recyclerview.widget.RecyclerView.Adapter<PopularPeoplesAdapter.ViewHolder>() {
 
-    var isLoading = false
     private var items: MutableList<PeopleResponse.Result> = mutableListOf()
-
 
     override
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

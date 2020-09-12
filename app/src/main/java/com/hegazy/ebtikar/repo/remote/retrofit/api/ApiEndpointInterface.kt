@@ -1,20 +1,26 @@
 package com.hegazy.ebtikar.repo.remote.retrofit.api
 
+import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiEndpointInterface {
 
 
-    @GET("person/popular?api_key=242d544fe443aa59e56d47a3d5f2d6c4&language=en-US&page=")
-//    @GET("person/popular?api_key=242d544fe443aa59e56d47a3d5f2d6c4&language=en-US")
+    @GET(ApiUrls.GET_ALL_POPULAR_PEOPLE)
     fun getPopularPeoples(
-//        @Path("page") PageIndex: Int
         @Query("page") PageIndex: Int
     ): Deferred<Response<PeopleResponse>>
+
+    @GET(ApiUrls.GET_PEOPLE_IMAGES)
+    fun getPeopleImages(
+        @Path("person_id") personId: Int
+    ): Deferred<Response<DetailsResponse>>
 
 
 }
