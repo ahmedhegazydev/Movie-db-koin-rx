@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.model.PeopleResponse
-import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants
+import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -60,7 +60,7 @@ class PopularPeoplesAdapter(
 
             Glide
                 .with(context)
-                .load(NetworkConstants.BASE_IMAGE_PATH + item.profile_path)
+                .load(ApiUrls.BASE_IMAGE_PATH + item.profile_path)
                 .placeholder(R.drawable.will_smith)
                 .into(imageViewProfile)
             textViewName.text = item.name

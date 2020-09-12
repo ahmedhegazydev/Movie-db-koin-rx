@@ -5,8 +5,6 @@ import com.hegazy.ebtikar.BuildConfig
 
 object NetworkConstants {
 
-    const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780//"
-
     //Success
     const val successWithoutBody = 2
 
