@@ -2,13 +2,16 @@ package com.hegazy.ebtikar.ui.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.google.gson.Gson
-import com.hegazy.ebtikar.adapters.PersonImagesAdapter
+import com.hegazy.ebtikar.adapters.PeopleImagesAdapter
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPeopleDetailsBinding
 import com.hegazy.ebtikar.model.DetailsResponse.Profile
@@ -17,6 +20,7 @@ import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
 import com.hegazy.ebtikar.utils.setupDialog
 import com.hegazy.ebtikar.viewmodel.DetailsViewModel
+import kotlinx.android.synthetic.main.fragment_popular_peoples.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -24,14 +28,15 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
-class PersonDetailsFragment : Fragment() {
+class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickListener {
     private lateinit var viewDataBinding: FragmentPeopleDetailsBinding
-    private var mAdapter: PersonImagesAdapter? = null
+
+    //    private var mAdapter: PersonImagesAdapter? = null
     val model by viewModel<DetailsViewModel>()
     val gson = Gson()
     var peopleItem: PeopleResponse.Result? = null
     var dialog: AlertDialog? = null
-    private lateinit var mAdapterPersonImages: PersonImagesAdapter
+    private lateinit var mAdapterPersonImages: PeopleImagesAdapter
 
 
     override fun onCreateView(
@@ -48,6 +53,8 @@ class PersonDetailsFragment : Fragment() {
         Timber.d("onViewCreated PersonDetailsFragment")
         Timber.d("size_dummy = ${Profile.generateDummyData().size}")
 
+        setupUI()
+
         initDialog()
 
         getPassedPersonId()
@@ -58,9 +65,22 @@ class PersonDetailsFragment : Fragment() {
 
     }
 
+    private fun setupUI() {
+        rv_popular.layoutManager = GridLayoutManager(requireActivity(), 3)
+        rv_popular?.setHasFixedSize(true)
+        mAdapterPersonImages = PeopleImagesAdapter(this, requireActivity())
+        rv_popular.adapter = mAdapterPersonImages
+
+
+        val snapHelper = GravitySnapHelper(Gravity.END)
+        snapHelper.attachToRecyclerView(rv_popular)
+
+
+    }
+
     private fun accessCoverFlow() {
-        mAdapter = PersonImagesAdapter(requireActivity(), Profile.generateDummyData())
-        mAdapter!!.setData(Profile.generateDummyData())
+//        mAdapter = PersonImagesAdapter(requireActivity(), Profile.generateDummyData())
+//        mAdapter!!.setData(Profile.generateDummyData())
 //        coverflow.adapter = mAdapter
 //        coverflow.setOnItemClickListener { parent, view, position, id ->
 //        }
@@ -108,7 +128,8 @@ class PersonDetailsFragment : Fragment() {
                 return@Observer
             }
             Timber.d("extractedImages = size %s", it.size)
-            mAdapter?.setData(it)
+//            mAdapter?.setData(it)
+            mAdapterPersonImages.setItems(it)
 
         })
 
@@ -133,6 +154,15 @@ class PersonDetailsFragment : Fragment() {
 
     private fun showDialogLoading() {
         dialog?.show()
+    }
+
+    override fun onImageClick(
+        position: Int,
+        item: Profile,
+        viewHolder: PeopleImagesAdapter.ViewHolder
+    ) {
+
+
     }
 
 
