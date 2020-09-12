@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/Black_transparent_black_hex_10"
-
         tools:context=".ui.activity.MainActivity"
 
         >

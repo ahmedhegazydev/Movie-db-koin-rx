@@ -3,6 +3,7 @@ package com.hegazy.ebtikar.utils
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.navigation.NavDestination
 import com.hegazy.ebtikar.R
+import dmax.dialog.SpotsDialog
 
 fun matchDestination(destination: NavDestination, @IdRes destId: Int): Boolean {
     var currentDestination: NavDestination? = destination
@@ -64,4 +66,12 @@ fun isInternetConnected(context: Context): Boolean {
     val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
     return activeNetwork?.isConnectedOrConnecting == true
+}
+
+fun setupDialog(activity: Activity?): AlertDialog {
+    return SpotsDialog.Builder()
+        .setCancelable(false)
+        .setTheme(R.style.CustomSpotDialog)
+        .setContext(activity).build()
+
 }

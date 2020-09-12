@@ -23,13 +23,6 @@ class PopularPeoplesAdapter(
     private var items: MutableList<PeopleResponse.Result> = mutableListOf()
 
 
-    fun setItems(itemsList: MutableList<PeopleResponse.Result>) {
-        items = itemsList
-        notifyDataSetChanged()
-
-    }
-
-
     override
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = R.layout.item_popular_people
@@ -62,7 +55,6 @@ class PopularPeoplesAdapter(
             Glide
                 .with(context)
                 .load(NetworkConstants.BASE_IMAGE_PATH + item.profile_path)
-//                .apply(options)
                 .placeholder(R.drawable.will_smith)
                 .into(imageViewProfile)
             textViewName.text = item.name
@@ -76,6 +68,12 @@ class PopularPeoplesAdapter(
         fun onPeopleClick(position: Int, item: PeopleItem, viewHolder: ViewHolder)
     }
 
+
+    fun setItems(itemsList: MutableList<PeopleResponse.Result>) {
+        items = itemsList
+        notifyDataSetChanged()
+
+    }
 }
 
 

@@ -14,8 +14,8 @@ import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
 import com.hegazy.ebtikar.model.PeopleItem
 import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
+import com.hegazy.ebtikar.utils.setupDialog
 import com.hegazy.ebtikar.viewmodel.PopularPeoplesViewModel
-import dmax.dialog.SpotsDialog
 import kotlinx.android.synthetic.main.fragment_popular_peoples.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -46,16 +46,11 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
-        setupDialog()
-    }
-
-    private fun setupDialog() {
-        dialog = SpotsDialog.Builder()
-            .setCancelable(false)
-            .setTheme(R.style.CustomSpotDialog).setContext(requireActivity()).build()
+        dialog = setupDialog(requireActivity())
 
 
     }
+
 
 
     private fun setupUI() {
