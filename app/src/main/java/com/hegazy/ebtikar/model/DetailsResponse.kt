@@ -9,18 +9,27 @@ class DetailsResponse : Serializable {
     val profiles: MutableList<Profile> = mutableListOf()
 
 
-    inner class Profile {
+    data class Profile(
 
         @SerializedName("width")
-        val width: Int = 0
+        val width: Int = 0,
 
         @SerializedName("height")
-        val height: Int = 0
+        val height: Int = 0,
 
         @SerializedName("file_path")
         val file_path: String = ""
+    ) {
+        companion object {
+            fun generateDummyData(): MutableList<Profile> {
+                val list: MutableList<Profile> = mutableListOf()
+                repeat(10) {
+                    list.add(Profile(100, 100, ""))
+                }
+                return list
+            }
 
-
+        }
     }
 
 }

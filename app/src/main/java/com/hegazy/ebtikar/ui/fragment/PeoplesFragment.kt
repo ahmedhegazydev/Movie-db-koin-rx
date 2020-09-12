@@ -87,9 +87,6 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
                 },
                 onDisconnected = {
                     Timber.d("getPopularPeoples onDisconnected")
-//                    include_no_internet_notifications_fragment.visibility = View.GONE
-//                    rv_notifications_fragments.visibility = View.GONE
-//                    include_no_internet_notifications_fragment.visibility = View.VISIBLE
                 })
         }
 

@@ -11,14 +11,13 @@ import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
-import java.util.*
 
 
 class PersonImagesAdapter(private var mContext: Context? = null) : BaseAdapter() {
-    private var mData =
-        ArrayList<DetailsResponse.Profile>(0)
+    private var mData:
+            MutableList<DetailsResponse.Profile> = mutableListOf()
 
-    fun setData(data: ArrayList<DetailsResponse.Profile>) {
+    fun setData(data: MutableList<DetailsResponse.Profile>) {
         mData = data
     }
 

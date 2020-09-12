@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.hegazy.ebtikar.adapters.PersonImagesAdapter
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPeopleDetailsBinding
+import com.hegazy.ebtikar.model.DetailsResponse.Profile
 import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
@@ -55,7 +56,7 @@ class PersonDetailsFragment : Fragment() {
         getPassedPersonId()
 
         mAdapter = PersonImagesAdapter(requireActivity())
-        mAdapter!!.setData(mData)
+        mAdapter!!.setData(Profile.generateDummyData())
         coverflow.adapter = mAdapter
         coverflow.setOnItemClickListener { parent, view, position, id ->
 
@@ -100,21 +101,15 @@ class PersonDetailsFragment : Fragment() {
                 },
                 onDisconnected = {
                     Timber.d("getPopularPeoples onDisconnected")
-//                    include_no_internet_notifications_fragment.visibility = View.GONE
-//                    rv_notifications_fragments.visibility = View.GONE
-//                    include_no_internet_notifications_fragment.visibility = View.VISIBLE
                 })
         }
-
 
         model.extractedImages.observe(viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 return@Observer
             }
-            Timber.d("size %s", it.size)
-
-            mAdapterPopularPeople.setItems(it)
-
+            Timber.d("extractedImages = size %s", it.size)
+            mAdapter?.setData(it)
 
         })
 
