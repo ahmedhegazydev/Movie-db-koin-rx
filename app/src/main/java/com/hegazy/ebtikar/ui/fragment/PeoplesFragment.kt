@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
+import com.hegazy.ebtikar.databinding.FragmentPopularPeoplesBinding
 import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.ui.activity.MainActivity
 import com.hegazy.ebtikar.utils.checkInternetConnection
@@ -27,7 +28,7 @@ import timber.log.Timber
 
 
 class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListener {
-    //    private lateinit var viewDataBinding: FragmentFavoriteBinding
+    private lateinit var viewDataBinding: FragmentPopularPeoplesBinding
     private lateinit var mAdapterPopularPeople: PopularPeoplesAdapter
     val model by viewModel<PopularPeoplesViewModel>()
     var dialog: AlertDialog? = null
@@ -37,19 +38,15 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        viewDataBinding = FragmentFavoriteBinding.inflate(inflater, container, false)
-//        viewDataBinding.favoriteFragment = this
-//        return viewDataBinding.root
-
-        return layoutInflater.inflate(R.layout.fragment_popular_peoples, container, false)
-
+        viewDataBinding = FragmentPopularPeoplesBinding.inflate(inflater, container, false)
+        return viewDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
         dialog = setupDialog(requireActivity())
+
 
 
     }
@@ -82,7 +79,6 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         GlobalScope.launch(Dispatchers.Main) {
             checkInternetConnection(requireActivity(),
                 action = {
-
                     model.extractedPeoples.postValue(mutableListOf())
                     Timber.d("getPopularPeoples action")
                     model.isRequesting.value = true
@@ -142,6 +138,13 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         val bundle = Bundle()
         bundle.putString("peopleItem", gson.toJson(item, PeopleResponse.Result::class.java))
         (requireActivity() as MainActivity).navigateTo(R.id.personDetailsFragment, bundle)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Timber.d("onDestroyView")
+
 
     }
 

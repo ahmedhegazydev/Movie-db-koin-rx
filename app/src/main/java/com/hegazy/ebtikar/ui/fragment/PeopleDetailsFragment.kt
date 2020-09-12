@@ -15,11 +15,9 @@ class PersonDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewDataBinding = FragmentPeopleDetailsBinding.inflate(inflater, container, false)
         viewDataBinding.peopleDetailsFragment = this
         return viewDataBinding.root
-//        return layoutInflater.inflate(R.layout.fragment_people_details, container, false)
     }
 
 

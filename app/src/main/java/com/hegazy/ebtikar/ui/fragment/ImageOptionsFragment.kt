@@ -15,11 +15,9 @@ class ImageOptionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         viewDataBinding = FragmentImageOptionsBinding.inflate(inflater, container, false)
         viewDataBinding.imageOptionsFragment = this
         return viewDataBinding.root
-//        return layoutInflater.inflate(R.layout.fragment_image_options, container, false)
     }
 
 
