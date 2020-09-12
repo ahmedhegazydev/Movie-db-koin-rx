@@ -17,8 +17,6 @@ import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
 import com.hegazy.ebtikar.utils.setupDialog
 import com.hegazy.ebtikar.viewmodel.DetailsViewModel
-import it.moondroid.coverflow.components.ui.containers.FeatureCoverFlow.OnScrollPositionListener
-import kotlinx.android.synthetic.main.fragment_people_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,19 +61,15 @@ class PersonDetailsFragment : Fragment() {
     private fun accessCoverFlow() {
         mAdapter = PersonImagesAdapter(requireActivity(), Profile.generateDummyData())
         mAdapter!!.setData(Profile.generateDummyData())
-        coverflow.adapter = mAdapter
-        coverflow.setOnItemClickListener { parent, view, position, id ->
-
-        }
-        coverflow.setOnScrollPositionListener(object : OnScrollPositionListener {
-            override fun onScrolledToPosition(position: Int) {
-
-            }
-
-            override fun onScrolling() {
-
-            }
-        })
+//        coverflow.adapter = mAdapter
+//        coverflow.setOnItemClickListener { parent, view, position, id ->
+//        }
+//        coverflow.setOnScrollPositionListener(object : OnScrollPositionListener {
+//            override fun onScrolledToPosition(position: Int) {
+//            }
+//            override fun onScrolling() {
+//            }
+//        })
     }
 
     private fun initDialog() {

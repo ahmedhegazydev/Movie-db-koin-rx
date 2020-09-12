@@ -9,7 +9,14 @@
     <fragment
         android:id="@+id/imageOptionsFragment"
         android:name="com.hegazy.ebtikar.ui.fragment.ImageOptionsFragment"
-        android:label="ImageOptionsFragment" />
+        android:label="ImageOptionsFragment">
+
+        <argument
+            android:name="image_path_to_down"
+            app:argType="string"
+
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/personDetailsFragment"
