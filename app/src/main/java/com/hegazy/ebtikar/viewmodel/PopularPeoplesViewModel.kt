@@ -7,32 +7,30 @@ import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.repo.APICallResult
 import com.hegazy.ebtikar.repo.PopularPeoplesRepo
 import com.hegazy.ebtikar.repo.toErrorMessage
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class PopularPeoplesViewModel : ViewModel() {
+class PopularPeoplesViewModel(private val repo: PopularPeoplesRepo) : ViewModel() {
 
     private var page = 1
     private val size = 10
-    val hasNextPage: MutableLiveData<Boolean> = MutableLiveData()
-
-    val isRequesting = MutableLiveData<Boolean>()
-    private var repo = PopularPeoplesRepo()
-
-    internal val extractedPoeples = MutableLiveData<MutableList<PeopleResponse.Result>>()
+    private val hasNextPage: MutableLiveData<Boolean> = MutableLiveData()
+    internal val isRequesting = MutableLiveData<Boolean>()
+    internal val extractedPeoples = MutableLiveData<MutableList<PeopleResponse.Result>>()
     internal val errorSingleLiveEvent = MutableLiveData<Int>()
+    private var myJob: Job? = null
 
 
     fun getPopularPeoples(pageIndex: Int = page) {
         Timber.d("getPopularPeoples: ")
         page = pageIndex
-        viewModelScope.launch {
+        myJob = viewModelScope.launch {
             when (val response = repo.getPopularPeoples(pageIndex)) {
                 is APICallResult.Success<*> -> {
                     Timber.d("response success")
                     isRequesting.postValue(false)
-                    extractedPoeples.postValue((response.data as PeopleResponse?)?.results)
-
+                    extractedPeoples.postValue((response.data as PeopleResponse?)?.results)
                 }
 
                 is APICallResult.Error<*> -> {
@@ -48,5 +46,12 @@ class PopularPeoplesViewModel : ViewModel() {
         getPopularPeoples(page + 1)
     }
 
+
+    override fun onCleared() {
+        super.onCleared()
+
+        myJob?.cancel()
+
+    }
 
 }

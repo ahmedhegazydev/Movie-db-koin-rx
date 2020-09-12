@@ -5,12 +5,11 @@ import android.app.Application
 import android.content.Context
 import com.hegazy.ebtikar.BuildConfig
 import com.hegazy.ebtikar.koin.appModule
+import com.hegazy.ebtikar.koin.repoModule
 import com.hegazy.ebtikar.koin.viewModelModule
-import com.hegazy.ebtikar.repo.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import org.koin.dsl.module
 import timber.log.Timber
 
 class MovieApp : Application() {
@@ -32,16 +31,16 @@ class MovieApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-        var listofModules = module {
-            single { NetworkModule() }
-        }
+//        var listofModules = module {
+//            single { NetworkModule() }
+//        }
 
 
         startKoin {
             androidLogger()
             androidContext(context)
 //            modules(listOf(listofModules, viewModelModule))
-            modules(listOf(appModule, viewModelModule))
+            modules(listOf(appModule, viewModelModule, repoModule))
         }
 
     }

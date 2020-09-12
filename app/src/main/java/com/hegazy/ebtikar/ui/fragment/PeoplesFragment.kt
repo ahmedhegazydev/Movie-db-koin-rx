@@ -54,8 +54,6 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
 
     }
 
-
-
     private fun setupUI() {
         rv_popular.layoutManager = GridLayoutManager(requireActivity(), 3)
         rv_popular?.setHasFixedSize(true)
@@ -85,7 +83,7 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
             checkInternetConnection(requireActivity(),
                 action = {
 
-                    model.extractedPoeples.postValue(mutableListOf())
+                    model.extractedPeoples.postValue(mutableListOf())
                     Timber.d("getPopularPeoples action")
                     model.isRequesting.value = true
                     model.getPopularPeoples(pageIndex = 1)
@@ -100,7 +98,7 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         }
 
 
-        model.extractedPoeples.observe(viewLifecycleOwner, Observer {
+        model.extractedPeoples.observe(viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 return@Observer
             }
@@ -146,6 +144,5 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
         (requireActivity() as MainActivity).navigateTo(R.id.personDetailsFragment, bundle)
 
     }
-
 
 }
