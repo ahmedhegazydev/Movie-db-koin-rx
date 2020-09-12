@@ -5,14 +5,12 @@ import timber.log.Timber
 
 class DetailsPeopleRepo : BaseRepository() {
 
-    suspend fun getPopularPeoples(pageIndex: Int): Any {
+    suspend fun getPeopleImages(peopleId: Int?): Any {
         return callApi(call = {
-            Timber.d("pageIndex = " + pageIndex)
-            //Injected GithubServiceAPI
+            Timber.d("pageIndex = " + peopleId)
             val serviceAPI: NetworkModule = NetworkModule()
             val service: ApiEndpointInterface = serviceAPI.retrofit()
-            service.getPopularPeoples(pageIndex).await()
-
+            service.getPeopleImages(peopleId).await()
         })
     }
 

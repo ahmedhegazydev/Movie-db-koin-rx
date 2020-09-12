@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
+import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPopularPeoplesBinding
 import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.ui.activity.MainActivity
@@ -63,7 +64,7 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
 //                        return
 //                    if (!model.isRequesting.value!!) {
 //                        model.isRequesting.value = true
-//                        model.findNextNotifications()
+//                        model.findNextPeoples()
 //                    }
 //                }
             }
@@ -136,7 +137,10 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
 
         Timber.d("Person_id = ${item.id}")
         val bundle = Bundle()
-        bundle.putString("peopleItem", gson.toJson(item, PeopleResponse.Result::class.java))
+        bundle.putString(
+            Constants.ARG_KEY_PEOPLE_ITEM,
+            gson.toJson(item, PeopleResponse.Result::class.java)
+        )
         (requireActivity() as MainActivity).navigateTo(R.id.personDetailsFragment, bundle)
 
     }

@@ -19,7 +19,7 @@ interface ApiEndpointInterface {
 
     @GET(ApiUrls.GET_PEOPLE_IMAGES)
     fun getPeopleImages(
-        @Path("person_id") personId: Int
+        @Path("person_id") personId: Int?
     ): Deferred<Response<DetailsResponse>>
 
 

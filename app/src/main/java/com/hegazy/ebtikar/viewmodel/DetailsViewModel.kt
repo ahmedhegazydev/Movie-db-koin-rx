@@ -3,7 +3,7 @@ package com.hegazy.ebtikar.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.APICallResult
 import com.hegazy.ebtikar.repo.DetailsPeopleRepo
 import com.hegazy.ebtikar.repo.toErrorMessage
@@ -13,24 +13,21 @@ import timber.log.Timber
 
 class DetailsViewModel(private val repo: DetailsPeopleRepo) : ViewModel() {
 
-    private var page = 1
-    private val size = 10
     private val hasNextPage: MutableLiveData<Boolean> = MutableLiveData()
     internal val isRequesting = MutableLiveData<Boolean>()
-    internal val extractedPeoples = MutableLiveData<MutableList<PeopleResponse.Result>>()
+    internal val extractedImages = MutableLiveData<MutableList<DetailsResponse.Profile>>()
     internal val errorSingleLiveEvent = MutableLiveData<Int>()
     private var myJob: Job? = null
 
 
-    fun getPopularPeoples(pageIndex: Int = page) {
-        Timber.d("getPopularPeoples: ")
-        page = pageIndex
+    fun getPeopleImages(peopleId: Int?) {
+        Timber.d("getPeopleImages: ")
         myJob = viewModelScope.launch {
-            when (val response = repo.getPopularPeoples(pageIndex)) {
+            when (val response = repo.getPeopleImages(peopleId)) {
                 is APICallResult.Success<*> -> {
                     Timber.d("response success")
                     isRequesting.postValue(false)
-                    extractedPeoples.postValue((response.data as PeopleResponse?)?.results)
+                    extractedImages.postValue((response.data as DetailsResponse?)?.profiles)
                 }
 
                 is APICallResult.Error<*> -> {
@@ -40,10 +37,6 @@ class DetailsViewModel(private val repo: DetailsPeopleRepo) : ViewModel() {
                 }
             }
         }
-    }
-
-    fun findNextPopularPeople() {
-        getPopularPeoples(page + 1)
     }
 
 
