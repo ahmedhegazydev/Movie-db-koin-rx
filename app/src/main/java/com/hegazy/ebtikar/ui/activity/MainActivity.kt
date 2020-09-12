@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
 import com.hegazy.ebtikar.databinding.ActivityMainBinding
@@ -26,15 +27,24 @@ class MainActivity : AppCompatActivity() {
             R.layout.activity_main
         )
 
-
     }
 
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+
+        setupNavigation()
+    }
+
+    private fun setupNavigation() {
+        navController = Navigation.findNavController(this, R.id.my_nav_host_fragment)
+    }
 
     fun navigateTo(@IdRes resId: Int, bundle: Bundle? = null, popBackStack: Boolean? = false) {
         runOnUiThread {
 
-
-            if (navController!!.currentDestination != null && matchDestination(
+            if (navController!!.currentDestination != null
+                && matchDestination(
                     navController!!.currentDestination!!,
                     resId
                 )

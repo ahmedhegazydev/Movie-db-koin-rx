@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
-import com.hegazy.ebtikar.model.PeopleItem
 import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.repo.remote.retrofit.NetworkConstants
 import de.hdodenhof.circleimageview.CircleImageView
@@ -36,6 +35,13 @@ class PopularPeoplesAdapter(
         val item = items[position]
 
         viewHolder.setPeopleItem(item)
+        viewHolder.itemView.setOnClickListener {
+            listener.onPeopleClick(
+                position,
+                item,
+                viewHolder
+            )
+        }
 
     }
 
@@ -59,13 +65,14 @@ class PopularPeoplesAdapter(
                 .into(imageViewProfile)
             textViewName.text = item.name
 
+
         }
 
     }
 
 
     interface PeopleItemClickListener {
-        fun onPeopleClick(position: Int, item: PeopleItem, viewHolder: ViewHolder)
+        fun onPeopleClick(position: Int, item: PeopleResponse.Result, viewHolder: ViewHolder)
     }
 
 

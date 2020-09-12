@@ -14,7 +14,13 @@
     <fragment
         android:id="@+id/personDetailsFragment"
         android:name="com.hegazy.ebtikar.ui.fragment.PersonDetailsFragment"
-        android:label="PersonDetailsFragment" />
+        android:label="PersonDetailsFragment">
+
+        <argument
+            android:name="peopleItem"
+            app:argType="string" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/peoplesFragment"

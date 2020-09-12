@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
-import com.hegazy.ebtikar.model.PeopleItem
+import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.ui.activity.MainActivity
 import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
 import com.hegazy.ebtikar.utils.setupDialog
@@ -29,6 +31,7 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
     private lateinit var mAdapterPopularPeople: PopularPeoplesAdapter
     val model by viewModel<PopularPeoplesViewModel>()
     var dialog: AlertDialog? = null
+    val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,10 +137,13 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
 
     override fun onPeopleClick(
         position: Int,
-        item: PeopleItem,
+        item: PeopleResponse.Result,
         viewHolder: PopularPeoplesAdapter.ViewHolder
     ) {
 
+        val bundle = Bundle()
+        bundle.putString("peopleItem", gson.toJson(item, PeopleResponse.Result::class.java))
+        (requireActivity() as MainActivity).navigateTo(R.id.personDetailsFragment, bundle)
 
     }
 
