@@ -61,8 +61,10 @@ class PopularPeoplesAdapter(
                 .load(ApiUrls.BASE_IMAGE_PATH + item.profile_path)
                 .placeholder(R.drawable.will_smith)
                 .into(imageViewProfile)
-            textViewName.text = item.name
-
+            val words = item.name.split(" ".toRegex(), 3).toTypedArray()
+            if (words.isNotEmpty()) {
+                textViewName.text = words[0]
+            }
 
         }
 

@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
 import com.hegazy.ebtikar.databinding.ActivityMainBinding
+import com.hegazy.ebtikar.utils.enableFullScreen
 import com.hegazy.ebtikar.utils.matchDestination
 
 class MainActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_main)
+        enableFullScreen(this)
         binding = DataBindingUtil.setContentView(
             this,
             R.layout.activity_main

@@ -7,6 +7,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.navigation.NavDestination
@@ -73,5 +75,16 @@ fun setupDialog(activity: Activity?): AlertDialog {
         .setCancelable(false)
         .setTheme(R.style.CustomSpotDialog)
         .setContext(activity).build()
+}
 
+
+fun enableFullScreen(activity: androidx.fragment.app.FragmentActivity?) {
+    //show system UI
+    activity?.window?.setFlags(
+        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+        WindowManager.LayoutParams.FLAG_FULLSCREEN
+    )
+    //show navigation bar
+    activity?.window!!.decorView.systemUiVisibility =
+        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
 }

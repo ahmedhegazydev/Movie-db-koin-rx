@@ -7,7 +7,7 @@ class DetailsPeopleRepo : BaseRepository() {
 
     suspend fun getPeopleImages(peopleId: Int?): Any {
         return callApi(call = {
-            Timber.d("pageIndex = " + peopleId)
+            Timber.d("peopleId = " + peopleId)
             val serviceAPI: NetworkModule = NetworkModule()
             val service: ApiEndpointInterface = serviceAPI.retrofit()
             service.getPeopleImages(peopleId).await()

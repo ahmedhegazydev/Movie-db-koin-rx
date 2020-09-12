@@ -46,9 +46,11 @@ class PeoplesFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickListene
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupUI()
+        initDialog()
+    }
+
+    private fun initDialog() {
         dialog = setupDialog(requireActivity())
-
-
     }
 
     private fun setupUI() {

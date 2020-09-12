@@ -45,17 +45,23 @@ class PersonDetailsFragment : Fragment() {
         return viewDataBinding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated PersonDetailsFragment")
+        Timber.d("size_dummy = ${Profile.generateDummyData().size}")
 
-        dialog = setupDialog(requireActivity())
-
+        initDialog()
 
         getPassedPersonId()
 
-        mAdapter = PersonImagesAdapter(requireActivity())
+        accessCoverFlow()
+
+        getPeopleImages()
+
+    }
+
+    private fun accessCoverFlow() {
+        mAdapter = PersonImagesAdapter(requireActivity(), Profile.generateDummyData())
         mAdapter!!.setData(Profile.generateDummyData())
         coverflow.adapter = mAdapter
         coverflow.setOnItemClickListener { parent, view, position, id ->
@@ -70,10 +76,10 @@ class PersonDetailsFragment : Fragment() {
 
             }
         })
+    }
 
-        getPeopleImages()
-
-
+    private fun initDialog() {
+        dialog = setupDialog(requireActivity())
     }
 
     private fun getPassedPersonId() {
@@ -89,7 +95,6 @@ class PersonDetailsFragment : Fragment() {
     }
 
     private fun getPeopleImages() {
-
         GlobalScope.launch(Dispatchers.Main) {
             checkInternetConnection(requireActivity(),
                 action = {

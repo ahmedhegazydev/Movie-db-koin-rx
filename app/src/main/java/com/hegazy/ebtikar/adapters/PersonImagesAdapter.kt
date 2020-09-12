@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
 
 
-class PersonImagesAdapter(private var mContext: Context? = null) : BaseAdapter() {
-    private var mData:
-            MutableList<DetailsResponse.Profile> = mutableListOf()
+class PersonImagesAdapter(
+    private var mContext: Context? = null,
+    private var mData: MutableList<DetailsResponse.Profile>
+) : BaseAdapter() {
+//    private var mData: MutableList<DetailsResponse.Profile> = mutableListOf()
 
     fun setData(data: MutableList<DetailsResponse.Profile>) {
         mData = data
+        notifyDataSetChanged()
     }
 
     override fun getCount(): Int {
@@ -58,7 +60,6 @@ class PersonImagesAdapter(private var mContext: Context? = null) : BaseAdapter()
     }
 
     internal class ViewHolder {
-        var text: TextView? = null
         var image: ImageView? = null
     }
 }
