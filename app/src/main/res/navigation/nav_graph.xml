@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/peoplesFragment"
+
+    >
+
+    <fragment
+        android:id="@+id/imageOptionsFragment"
+        android:name="com.hegazy.ebtikar.ui.fragment.ImageOptionsFragment"
+        android:label="ImageOptionsFragment" />
+
+    <fragment
+        android:id="@+id/personDetailsFragment"
+        android:name="com.hegazy.ebtikar.ui.fragment.PersonDetailsFragment"
+        android:label="PersonDetailsFragment" />
+
+    <fragment
+        android:id="@+id/peoplesFragment"
+        android:name="com.hegazy.ebtikar.ui.fragment.PeoplesFragment"
+        android:label="PeoplesFragment" />
+
+
+</navigation>
