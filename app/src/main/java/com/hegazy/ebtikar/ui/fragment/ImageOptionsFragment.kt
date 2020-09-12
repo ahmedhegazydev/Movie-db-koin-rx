@@ -21,4 +21,9 @@ class ImageOptionsFragment : Fragment() {
     }
 
 
+    fun handleOnDownloadClicked() {
+
+
+    }
+
 }
