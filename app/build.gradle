@@ -112,11 +112,6 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
 
 
-    //permission helper
-    implementation 'com.github.tajchert:nammu:1.1.1'
-
-
-
     //Navigation
     def nav_version = "2.3.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"// use -ktx for Kotlin
@@ -135,9 +130,6 @@ dependencies {
 
     //Circle Imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    //rounded imageview
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-
 
     //Coroutines adapter
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'

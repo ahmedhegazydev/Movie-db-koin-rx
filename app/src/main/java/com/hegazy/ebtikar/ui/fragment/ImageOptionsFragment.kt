@@ -1,7 +1,10 @@
 package com.hegazy.ebtikar.ui.fragment
 
+import android.Manifest
+import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.Context.DOWNLOAD_SERVICE
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -9,9 +12,12 @@ import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
+import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentImageOptionsBinding
 import com.hegazy.ebtikar.model.DetailsResponse
@@ -29,6 +35,7 @@ class ImageOptionsFragment : Fragment() {
     var lastMsg = ""
     var profileItem: DetailsResponse.Profile? = null
     val gson = Gson()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,17 +62,14 @@ class ImageOptionsFragment : Fragment() {
                     requireArguments().getString(Constants.ARG_KEY_IMAGE_TO_DOWNLOAD) as String
                 profileItem =
                     gson.fromJson(passedProfileString, DetailsResponse.Profile::class.java)
-                fullPath = ApiUrls.BASE_IMAGE_PATH + "/dG7gLzlZCjZkjKMyoGIL8h5wjRj.jpg"
-//               fullPath = ApiUrls.BASE_IMAGE_PATH.plus(passedImagePath)
-
-
-                loadImage()
-
             }
         }
 
 
+
+        fullPath = ApiUrls.BASE_IMAGE_PATH.plus(profileItem?.file_path)
         Timber.d("passed_path = ${profileItem?.file_path}")
+        loadImage()
 
 
     }
@@ -73,14 +77,80 @@ class ImageOptionsFragment : Fragment() {
     private fun loadImage() {
         Glide.with(requireActivity())
             .load(fullPath)
-            //            .placeholder(R.drawable.will_smith)
+            .placeholder(R.drawable.will_smith)
             .into(image_to_download)
     }
 
     fun handleOnDownloadClicked() {
-        downloadImage(fullPath.toString())
+
+        if (ContextCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            != PERMISSION_GRANTED
+        ) {
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    requireActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )
+            ) {
+                AlertDialog.Builder(requireActivity())
+                    .setMessage("Ebtikar ned your permission for downloading image")
+                    .setPositiveButton(
+                        getString(R.string.okay)
+                    ) { dialog, which ->
+                        ActivityCompat.requestPermissions(
+                            requireActivity(),
+                            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                            MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE
+                        )
+                    }
+                    .setCancelable(true)
+                    .show()
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(
+                    requireActivity(),
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE
+                )
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+            downloadImage(fullPath.toString())
+
+        }
+
     }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE -> {
+                if (grantResults.isNotEmpty()
+                    && grantResults[0] == PERMISSION_GRANTED
+                ) {
+                    // Permission is granted. Continue the action or workflow
+                    downloadImage(fullPath.toString())
+
+
+                }
+            }
+        }
+
+    }
 
     private fun downloadImage(url: String) {
 
@@ -142,6 +212,10 @@ class ImageOptionsFragment : Fragment() {
             else -> "There's nothing to download"
         }
         return msg
+    }
+
+    companion object {
+        const val MY_PERMISSIONS_WRITE_EXTERNAL_STORAGE = 101
     }
 
 }
