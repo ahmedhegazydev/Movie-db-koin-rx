@@ -9,16 +9,4 @@ val appModule: Module = module {
 
     single { NetworkModule() }//Retrofit
 
-
-//    single { EndPointApiConfig(
-//            get () ,
-//            get()
-//        )
-//    }
-//
-//    single { NetworkModule.okHttpClient(
-//        get()//UnAuthorizeIntercepter
-//    ) }
-
-
 }

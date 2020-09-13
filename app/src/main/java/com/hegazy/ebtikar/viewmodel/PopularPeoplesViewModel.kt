@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegazy.ebtikar.model.PeopleResponse
 import com.hegazy.ebtikar.repo.APICallResult
-import com.hegazy.ebtikar.repo.PopularPeoplesRepo
+import com.hegazy.ebtikar.repo.repo.PopularPeoplesRepo
 import com.hegazy.ebtikar.repo.toErrorMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

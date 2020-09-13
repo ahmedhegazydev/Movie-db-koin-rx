@@ -31,15 +31,9 @@ class MovieApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-//        var listofModules = module {
-//            single { NetworkModule() }
-//        }
-
-
         startKoin {
             androidLogger()
-            androidContext(context)
-//            modules(listOf(listofModules, viewModelModule))
+            androidContext(this@MovieApp)
             modules(listOf(appModule, viewModelModule, repoModule))
         }
 

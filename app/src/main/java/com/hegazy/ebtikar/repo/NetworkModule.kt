@@ -12,9 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkModule {
 
 
-    fun retrofit(
-    ): ApiEndpointInterface {
-
+    fun retrofit(): ApiEndpointInterface {
         val retrofitBuilder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl(NetworkConstants.getBaseUrl())
             .addConverterFactory(GsonConverterFactory.create(gson()))

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.APICallResult
-import com.hegazy.ebtikar.repo.DetailsPeopleRepo
+import com.hegazy.ebtikar.repo.repo.DetailsPeopleRepo
 import com.hegazy.ebtikar.repo.toErrorMessage
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -13,12 +13,10 @@ import timber.log.Timber
 
 class DetailsViewModel(private val repo: DetailsPeopleRepo) : ViewModel() {
 
-    private val hasNextPage: MutableLiveData<Boolean> = MutableLiveData()
     internal val isRequesting = MutableLiveData<Boolean>()
     internal val extractedImages = MutableLiveData<MutableList<DetailsResponse.Profile>>()
     internal val errorSingleLiveEvent = MutableLiveData<Int>()
     private var myJob: Job? = null
-
 
     fun getPeopleImages(peopleId: Int?) {
         Timber.d("getPeopleImages: ")

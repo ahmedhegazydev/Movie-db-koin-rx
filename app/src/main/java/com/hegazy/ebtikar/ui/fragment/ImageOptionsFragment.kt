@@ -144,8 +144,6 @@ class ImageOptionsFragment : Fragment() {
                 ) {
                     // Permission is granted. Continue the action or workflow
                     downloadImage(fullPath.toString())
-
-
                 }
             }
         }
