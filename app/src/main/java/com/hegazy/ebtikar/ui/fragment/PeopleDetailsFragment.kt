@@ -11,12 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.google.gson.Gson
+import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.adapters.PeopleImagesAdapter
 import com.hegazy.ebtikar.adapters.PeopleMoreDetailsAdapter
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPeopleDetailsBinding
 import com.hegazy.ebtikar.model.DetailsResponse.Profile
 import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.ui.activity.MainActivity
 import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
 import com.hegazy.ebtikar.utils.setupDialog
@@ -32,7 +34,6 @@ import timber.log.Timber
 class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickListener {
     private lateinit var viewDataBinding: FragmentPeopleDetailsBinding
 
-    //    private var mAdapter: PersonImagesAdapter? = null
     val model by viewModel<DetailsViewModel>()
     val gson = Gson()
     var peopleItem: PeopleResponse.Result? = null
@@ -60,8 +61,6 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
 
         getPassedPersonId()
 
-        accessCoverFlow()
-
         getPeopleImages()
 
     }
@@ -77,24 +76,8 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
 
 
         val snapHelper = GravitySnapHelper(Gravity.END)
-//        val snapHelper = GravitySnapHelper(Gravity.START)
         snapHelper.attachToRecyclerView(rv_person_images)
 
-
-    }
-
-    private fun accessCoverFlow() {
-//        mAdapter = PersonImagesAdapter(requireActivity(), Profile.generateDummyData())
-//        mAdapter!!.setData(Profile.generateDummyData())
-//        coverflow.adapter = mAdapter
-//        coverflow.setOnItemClickListener { parent, view, position, id ->
-//        }
-//        coverflow.setOnScrollPositionListener(object : OnScrollPositionListener {
-//            override fun onScrolledToPosition(position: Int) {
-//            }
-//            override fun onScrolling() {
-//            }
-//        })
     }
 
     private fun initDialog() {
@@ -149,9 +132,7 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
                 return@Observer
             }
             Timber.d("extractedImages = size %s", it.size)
-//            mAdapter?.setData(it)
             mAdapterPersonImages.setItems(it)
-
         })
 
         model.errorSingleLiveEvent.observe(viewLifecycleOwner, Observer {
@@ -183,6 +164,13 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
         viewHolder: PeopleImagesAdapter.ViewHolder
     ) {
 
+
+        val bundle = Bundle()
+        bundle.putString(
+            Constants.ARG_KEY_IMAGE_TO_DOWNLOAD,
+            gson.toJson(item, Profile::class.java)
+        )
+        (requireActivity() as MainActivity).navigateTo(R.id.imageOptionsFragment, bundle)
 
     }
 

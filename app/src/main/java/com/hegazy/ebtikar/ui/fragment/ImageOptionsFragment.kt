@@ -11,11 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentImageOptionsBinding
+import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
 import com.hegazy.ebtikar.utils.doToast
 import kotlinx.android.synthetic.main.fragment_image_options.*
+import timber.log.Timber
 import java.io.File
 
 class ImageOptionsFragment : Fragment() {
@@ -24,6 +27,8 @@ class ImageOptionsFragment : Fragment() {
     private var fullPath: String? = ""
     var msg: String? = ""
     var lastMsg = ""
+    var profileItem: DetailsResponse.Profile? = null
+    val gson = Gson()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,15 +51,22 @@ class ImageOptionsFragment : Fragment() {
 
         (arguments?.containsKey(Constants.ARG_KEY_IMAGE_TO_DOWNLOAD)!!).apply {
             if (this) {
-                val passedImagePath =
-                    requireArguments().getString(Constants.ARG_KEY_IMAGE_TO_DOWNLOAD)
+                val passedProfileString =
+                    requireArguments().getString(Constants.ARG_KEY_IMAGE_TO_DOWNLOAD) as String
+                profileItem =
+                    gson.fromJson(passedProfileString, DetailsResponse.Profile::class.java)
                 fullPath = ApiUrls.BASE_IMAGE_PATH + "/dG7gLzlZCjZkjKMyoGIL8h5wjRj.jpg"
 //               fullPath = ApiUrls.BASE_IMAGE_PATH.plus(passedImagePath)
+
 
                 loadImage()
 
             }
         }
+
+
+        Timber.d("passed_path = ${profileItem?.file_path}")
+
 
     }
 

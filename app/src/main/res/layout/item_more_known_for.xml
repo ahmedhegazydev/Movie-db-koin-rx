@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/color_overview"
                 android:ellipsize="end"
-                android:maxLines="4"
+                android:maxLines="2"
                 android:padding="@dimen/_7sdp"
                 android:text="Ahmed AhmedAhmedAhmedAhmedAhmedAhmedAhmed Ahmed Ahmed Ahmed Ahmed"
                 android:textAllCaps="false"
