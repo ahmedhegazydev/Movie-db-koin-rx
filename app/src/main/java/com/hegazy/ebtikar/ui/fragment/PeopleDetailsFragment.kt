@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.google.gson.Gson
 import com.hegazy.ebtikar.adapters.PeopleImagesAdapter
+import com.hegazy.ebtikar.adapters.PeopleMoreDetailsAdapter
 import com.hegazy.ebtikar.constants.Constants
 import com.hegazy.ebtikar.databinding.FragmentPeopleDetailsBinding
 import com.hegazy.ebtikar.model.DetailsResponse.Profile
@@ -70,7 +71,6 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
             requireActivity(),
             LinearLayoutManager.HORIZONTAL, false
         )
-
         rv_person_images?.setHasFixedSize(true)
         mAdapterPersonImages = PeopleImagesAdapter(this, requireActivity())
         rv_person_images.adapter = mAdapterPersonImages
@@ -109,13 +109,29 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
                     PeopleResponse.Result::class.java
                 )
 
+                accessMorePersonDetails()
+
             }
         }
     }
 
+    private fun accessMorePersonDetails() {
+
+        rv_person_more.layoutManager = LinearLayoutManager(
+            requireActivity(),
+            LinearLayoutManager.VERTICAL, false
+        )
+        rv_person_more?.setHasFixedSize(true)
+        val mAdapterPersonMoreDetails = PeopleMoreDetailsAdapter(requireActivity())
+        rv_person_more.adapter = mAdapterPersonMoreDetails
+        mAdapterPersonMoreDetails.setItems(peopleItem?.knownFor)
+
+    }
+
     private fun getPeopleImages() {
         GlobalScope.launch(Dispatchers.Main) {
-            checkInternetConnection(requireActivity(),
+            checkInternetConnection(
+                requireActivity(),
                 action = {
                     model.extractedImages.postValue(mutableListOf())
                     Timber.d("getPopularPeoples action")

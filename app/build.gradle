@@ -177,9 +177,6 @@ dependencies {
     //Moshi
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
 
-
-    implementation 'com.github.moondroid.coverflow:library:1.0'
-
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
 
 }

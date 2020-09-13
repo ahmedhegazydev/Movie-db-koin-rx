@@ -1,0 +1,78 @@
+package com.hegazy.ebtikar.adapters
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.hegazy.ebtikar.R
+import com.hegazy.ebtikar.model.DetailsResponse
+import com.hegazy.ebtikar.model.PeopleResponse
+import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
+
+
+class PeopleMoreDetailsAdapter(
+    private val context: Context
+) : androidx.recyclerview.widget.RecyclerView.Adapter<PeopleMoreDetailsAdapter.ViewHolder>() {
+
+    private var items: MutableList<PeopleResponse.Result.KnownFor>? = mutableListOf()
+
+    override
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layout = R.layout.item_more_known_for
+        val v = LayoutInflater
+            .from(parent.context)
+            .inflate(layout, parent, false)
+        return ViewHolder(v)
+    }
+
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val item = items?.get(position)
+
+        viewHolder.setImageItem(item!!)
+
+    }
+
+    override fun getItemCount(): Int {
+        return items?.size!!
+    }
+
+
+    inner class ViewHolder(itemView: View) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        var imageViewProfile: ImageView = itemView.findViewById(R.id.known_image)
+        var textViewOverview: TextView = itemView.findViewById(R.id.known_text_overview)
+
+        @SuppressLint("SetTextI18n")
+        fun setImageItem(item: PeopleResponse.Result.KnownFor) {
+
+            Glide
+                .with(context)
+//                .load(ApiUrls.BASE_IMAGE_PATH + item.backdrop_path)
+                .load(ApiUrls.BASE_IMAGE_PATH + item.poster_path)
+                .placeholder(R.drawable.will_smith)
+                .into(imageViewProfile)
+
+            textViewOverview.text = item.overview
+
+        }
+
+    }
+
+
+    interface ImageItemClickListener {
+        fun onImageClick(position: Int, item: DetailsResponse.Profile, viewHolder: ViewHolder)
+    }
+
+    fun setItems(itemsList: MutableList<PeopleResponse.Result.KnownFor>?) {
+        items = itemsList
+        notifyDataSetChanged()
+
+    }
+}
+
+
+
