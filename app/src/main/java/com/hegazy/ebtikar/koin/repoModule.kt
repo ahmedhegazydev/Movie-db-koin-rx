@@ -7,6 +7,7 @@ import org.koin.dsl.module
 val repoModule = module {
 
     single { PopularPeoplesRepo() }
+//    single { PopularPeoplesRepo(get()) }
     single { DetailsPeopleRepo() }
 
 }

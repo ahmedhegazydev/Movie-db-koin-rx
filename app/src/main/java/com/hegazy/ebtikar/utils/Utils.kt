@@ -36,12 +36,12 @@ fun checkInternetConnection(
 ) {
     activity?.let {
         it.runOnUiThread {
-            checkInternetConnection2(activity, action = action, onDisconnected = onDisconnected)
+            checkInternetConn(activity, action = action, onDisconnected = onDisconnected)
         }
     }
 }
 
-fun checkInternetConnection2(
+fun checkInternetConn(
     context: Context?,
     action: (() -> Unit)?,
     onDisconnected: (() -> Unit)?

@@ -8,6 +8,16 @@
     <data>
 
 
+        <variable
+            name="item"
+            type="com.hegazy.ebtikar.model.PeopleResponse.Result" />
+
+
+        <variable
+            name="viewmodel"
+            type="com.hegazy.ebtikar.viewmodel.PopularPeoplesViewModel" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +42,8 @@
             app:spanCount="3"
             tools:itemCount="10"
             android:padding="@dimen/_5sdp"
+            app:pagingItems="@{viewmodel.items}"
+
             tools:listitem="@layout/item_popular_people" />
 
 

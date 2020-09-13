@@ -171,4 +171,8 @@ dependencies {
 
     implementation 'com.github.rubensousa:gravitysnaphelper:2.2.1'
 
+    //adding paging
+    def paging_version = '1.0.1'
+    implementation 'androidx.paging:paging-runtime:3.0.0-alpha05'
+
 }
