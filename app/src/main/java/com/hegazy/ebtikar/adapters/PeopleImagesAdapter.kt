@@ -5,11 +5,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.R
 import com.hegazy.ebtikar.model.DetailsResponse
 import com.hegazy.ebtikar.repo.remote.retrofit.ApiUrls
-import de.hdodenhof.circleimageview.CircleImageView
 
 
 class PeopleImagesAdapter(
@@ -49,7 +49,7 @@ class PeopleImagesAdapter(
 
     inner class ViewHolder(itemView: View) :
         androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
-        var imageViewProfile: CircleImageView = itemView.findViewById(R.id.image)
+        var imageViewProfile: ImageView = itemView.findViewById(R.id.image)
 
         @SuppressLint("SetTextI18n")
         fun setImageItem(item: DetailsResponse.Profile) {

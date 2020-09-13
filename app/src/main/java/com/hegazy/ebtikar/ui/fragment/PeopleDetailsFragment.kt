@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper
 import com.google.gson.Gson
 import com.hegazy.ebtikar.adapters.PeopleImagesAdapter
@@ -20,7 +20,7 @@ import com.hegazy.ebtikar.utils.checkInternetConnection
 import com.hegazy.ebtikar.utils.doToast
 import com.hegazy.ebtikar.utils.setupDialog
 import com.hegazy.ebtikar.viewmodel.DetailsViewModel
-import kotlinx.android.synthetic.main.fragment_popular_peoples.*
+import kotlinx.android.synthetic.main.fragment_people_details.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -66,14 +66,19 @@ class PersonDetailsFragment : Fragment(), PeopleImagesAdapter.ImageItemClickList
     }
 
     private fun setupUI() {
-        rv_popular.layoutManager = GridLayoutManager(requireActivity(), 3)
-        rv_popular?.setHasFixedSize(true)
+        rv_person_images.layoutManager = LinearLayoutManager(
+            requireActivity(),
+            LinearLayoutManager.HORIZONTAL, false
+        )
+
+        rv_person_images?.setHasFixedSize(true)
         mAdapterPersonImages = PeopleImagesAdapter(this, requireActivity())
-        rv_popular.adapter = mAdapterPersonImages
+        rv_person_images.adapter = mAdapterPersonImages
 
 
         val snapHelper = GravitySnapHelper(Gravity.END)
-        snapHelper.attachToRecyclerView(rv_popular)
+//        val snapHelper = GravitySnapHelper(Gravity.START)
+        snapHelper.attachToRecyclerView(rv_person_images)
 
 
     }
