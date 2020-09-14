@@ -3,7 +3,7 @@ package com.hegazy.ebtikar.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-class PeopleResponse : Serializable {
+class PeopleResponse {
     @SerializedName("page")
     val page: Int = 0
 
@@ -40,7 +40,7 @@ class PeopleResponse : Serializable {
         @SerializedName("known_for")
         val knownFor: MutableList<KnownFor> = mutableListOf()
 
-        inner class KnownFor : Serializable {
+        inner class KnownFor {
 
 
             @SerializedName("title")

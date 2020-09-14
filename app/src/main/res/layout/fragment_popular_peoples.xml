@@ -7,10 +7,15 @@
 
     <data>
 
+        <import type="android.view.View" />
 
         <variable
             name="item"
             type="com.hegazy.ebtikar.model.PeopleResponse.Result" />
+
+        <!--        <variable-->
+        <!--            name="item"-->
+        <!--            type="com.hegazy.ebtikar.model.PeopleResponse" />-->
 
 
         <variable
@@ -34,16 +39,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/Black_transparent_black_hex_10"
+            android:padding="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:pagingItems="@{viewmodel.extractedPeoples}"
             app:spanCount="3"
             tools:itemCount="10"
-            android:padding="@dimen/_5sdp"
-            app:pagingItems="@{viewmodel.items}"
-
             tools:listitem="@layout/item_popular_people" />
 
 

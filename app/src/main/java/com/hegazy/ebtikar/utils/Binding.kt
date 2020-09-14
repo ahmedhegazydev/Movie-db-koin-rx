@@ -3,7 +3,6 @@ package com.hegazy.ebtikar.utils
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hegazy.ebtikar.adapters.PopularPeoplesAdapter
@@ -14,12 +13,15 @@ import kotlinx.coroutines.launch
 
 
 @BindingAdapter("app:pagingItems")
-fun setPagingItems(listView: RecyclerView, items: PagingData<PeopleResponse.Result>?) {
+//fun setPagingItems(listView: RecyclerView, items: PagingData<PeopleResponse.Result>?) {
+//fun setPagingItems(listView: RecyclerView, items: PagingData<PeopleResponse>?) {
+fun setPagingItems(listView: RecyclerView, items: MutableList<PeopleResponse.Result>?) {
     GlobalScope.launch {
         items?.let {
             listView.visibility = View.VISIBLE
             (listView.adapter as PopularPeoplesAdapter).apply {
-                this.submitData(items)
+//                this.submitData(items)
+                this.setItems(items)
             }
         }
     }

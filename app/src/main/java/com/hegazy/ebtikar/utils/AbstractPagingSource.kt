@@ -15,17 +15,23 @@ abstract class AbstractPagingSource<U : Any> {
                 return try {
                     val response = fetchData(position, 20)
 //                    val response = fetchData(position)
-                    Timber.d("here")
+
+                    Timber.d("here $response")
+
+
                     LoadResult.Page(
                         data = response,
-                        prevKey = if (position == STARTING_PAGE_INDEX) null
-                        else position - 1,
+                        prevKey = if (position == STARTING_PAGE_INDEX)
+                            null
+                        else
+                            position - 1,
                         nextKey = if (response.isEmpty()) null
-                        else position + 1
+                        else
+                            position + 1
                     )
 
                 } catch (exception: Throwable) {
-//                    Timber.d("here")
+                    Timber.d("here  %s", exception.localizedMessage)
                     LoadResult.Error<Int, U>(exception)
                 }
             }

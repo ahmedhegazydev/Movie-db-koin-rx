@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
@@ -41,7 +42,11 @@ class ImageOptionsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = FragmentImageOptionsBinding.inflate(inflater, container, false)
+        viewDataBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_image_options,
+            container, false
+        )
         viewDataBinding.imageOptionsFragment = this
         return viewDataBinding.root
     }

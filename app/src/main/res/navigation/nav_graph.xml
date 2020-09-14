@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/peoplesFragment"
-        android:name="com.hegazy.ebtikar.ui.fragment.PeoplesFragment"
+        android:name="com.hegazy.ebtikar.ui.fragment.PopularPeopleFragment"
         android:label="PeoplesFragment" />
 
 

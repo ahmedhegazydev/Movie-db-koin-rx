@@ -5,28 +5,29 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hegazy.ebtikar.R
-import com.hegazy.ebtikar.databinding.FragmentPopularPeoplesBinding
+import com.hegazy.ebtikar.databinding.ItemPopularPeopleBinding
 import com.hegazy.ebtikar.model.PeopleResponse
 
 
 class PopularPeoplesAdapter(
     private val listener: PeopleItemClickListener,
     private val context: Context
-) : PagingDataAdapter<PeopleResponse.Result, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+//) : PagingDataAdapter<PeopleResponse.Result, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+//) : PagingDataAdapter<PeopleResponse, RecyclerView.ViewHolder>(REPO_COMPARATOR) {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: MutableList<PeopleResponse.Result> = mutableListOf()
 
 //    override
-//    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+//    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PeoplesViewHolder {
 //        val layout = R.layout.item_popular_people
 //        val v = LayoutInflater
 //            .from(parent.context)
 //            .inflate(layout, parent, false)
-//        return ViewHolder(v)
+//        return PeoplesViewHolder(v)
 //    }
 
 //    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -50,21 +51,22 @@ class PopularPeoplesAdapter(
                 parent,
                 false
             )
+
         )
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as PeoplesViewHolder).itemPeopleBinding.item = getItem(position)
+        (holder as PeoplesViewHolder).itemPeopleBinding.item = items[position]
         val animation = AnimationUtils.loadAnimation(
             context,
             R.anim.anim_bottom
         )
-        holder.itemView.startAnimation(animation)
+//        holder.itemView.startAnimation(animation)
     }
 
 
-//    override fun getItemCount(): Int {
-//        return items.size
-//    }
+    override fun getItemCount(): Int {
+        return items.size
+    }
 
 
 //    inner class ViewHolder(itemView: View) :
@@ -88,7 +90,7 @@ class PopularPeoplesAdapter(
 //
 //    }
 
-    inner class PeoplesViewHolder(val itemPeopleBinding: FragmentPopularPeoplesBinding) :
+    inner class PeoplesViewHolder(val itemPeopleBinding: ItemPopularPeopleBinding) :
         RecyclerView.ViewHolder(itemPeopleBinding.root)
 
 
@@ -97,23 +99,23 @@ class PopularPeoplesAdapter(
     }
 
 
-//    fun setItems(itemsList: MutableList<PeopleResponse.Result>) {
-//        items = itemsList
-//        notifyDataSetChanged()
-//    }
+    fun setItems(itemsList: MutableList<PeopleResponse.Result>) {
+        items.addAll(itemsList)
+        notifyDataSetChanged()
+    }
 
     companion object {
-        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<PeopleResponse.Result>() {
+        private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<PeopleResponse>() {
             override fun areItemsTheSame(
-                oldItem: PeopleResponse.Result,
-                newItem: PeopleResponse.Result
+                oldItem: PeopleResponse,
+                newItem: PeopleResponse
             ): Boolean =
-                oldItem.name == newItem.name
+                oldItem.page == newItem.page
 //                true
 
             override fun areContentsTheSame(
-                oldItem: PeopleResponse.Result,
-                newItem: PeopleResponse.Result
+                oldItem: PeopleResponse,
+                newItem: PeopleResponse
             ): Boolean =
                 oldItem.equals(newItem)
         }
