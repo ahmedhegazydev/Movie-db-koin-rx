@@ -54,6 +54,7 @@ class PopularPeopleFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickL
         return viewDataBinding.root
     }
 
+    @ExperimentalStdlibApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -82,6 +83,7 @@ class PopularPeopleFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickL
                     Timber.d("reached down")
                     if (hasNextPage) {
                         model.findNextPopularPeople()
+                        viewDataBinding.visibilityProgress = true
                     }
                 }
             }
@@ -89,6 +91,7 @@ class PopularPeopleFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickL
 
     }
 
+    @ExperimentalStdlibApi
     private fun getAllPopularPeoples() {
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -108,7 +111,10 @@ class PopularPeopleFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickL
                 return@Observer
             }
             Timber.d("size %s", it.size)
+            viewDataBinding.visibilityProgress = false
             mAdapterPopularPeople.setItems(it)
+
+
         })
         model.errorSingleLiveEvent.observe(viewLifecycleOwner, Observer {
             doToast(requireContext(), getString(it))
@@ -125,16 +131,6 @@ class PopularPeopleFragment : Fragment(), PopularPeoplesAdapter.PeopleItemClickL
         model.hasNextPage.observe(viewLifecycleOwner, Observer {
             hasNextPage = it
         })
-
-
-        // Make sure we cancel the previous job before creating a new one
-//        lifecycleScope.launch {
-//            model.getPopularPeoples().collectLatest { it ->
-//                model.items = it
-//                viewDataBinding.viewmodel = model
-//                model._dataLoading.value = false
-//            }
-//        }
 
     }
 

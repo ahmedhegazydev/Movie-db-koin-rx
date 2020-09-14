@@ -22,6 +22,9 @@
             name="viewmodel"
             type="com.hegazy.ebtikar.viewmodel.PopularPeoplesViewModel" />
 
+        <variable
+            name="visibility_progress"
+            type="Boolean" />
 
     </data>
 
@@ -37,18 +40,33 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_popular"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:background="@color/Black_transparent_black_hex_10"
             android:padding="@dimen/_5sdp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:pagingItems="@{viewmodel.extractedPeoples}"
             app:spanCount="3"
-            tools:itemCount="10"
+            tools:itemCount="20"
             tools:listitem="@layout/item_popular_people" />
+
+
+        <ProgressBar
+            android:id="@+id/progress_load_more"
+            style="@style/TextAppearance.AppCompat.Small.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:visibility="@{visibility_progress ? View.VISIBLE : View.GONE, default=gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="gone"
+
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,9 +12,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
+@ExperimentalStdlibApi
 @BindingAdapter("app:pagingItems")
-//fun setPagingItems(listView: RecyclerView, items: PagingData<PeopleResponse.Result>?) {
-//fun setPagingItems(listView: RecyclerView, items: PagingData<PeopleResponse>?) {
 fun setPagingItems(listView: RecyclerView, items: MutableList<PeopleResponse.Result>?) {
     GlobalScope.launch {
         items?.let {

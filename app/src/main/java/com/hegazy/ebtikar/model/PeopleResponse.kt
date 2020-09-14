@@ -16,7 +16,9 @@ class PeopleResponse {
     @SerializedName("results")
     val results: MutableList<Result> = mutableListOf()
 
-    inner class Result : Serializable {
+    class Result : Serializable {
+
+
         @SerializedName("name")
         val name: String = ""
 
