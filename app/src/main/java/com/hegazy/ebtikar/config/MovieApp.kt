@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import com.hegazy.ebtikar.BuildConfig
-import com.hegazy.ebtikar.koin.appModule
-import com.hegazy.ebtikar.koin.repoModule
-import com.hegazy.ebtikar.koin.viewModelModule
+import com.hegazy.ebtikar.koin.appComponent
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class MovieApp : Application() {
+open class MovieApp : Application() {
 
     companion object {
         var instance: MovieApp? = null
@@ -34,10 +32,11 @@ class MovieApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MovieApp)
-            modules(listOf(appModule, viewModelModule, repoModule))
+            modules(provideDependency())
         }
 
     }
 
+    open fun provideDependency() = appComponent
 
 }

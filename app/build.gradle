@@ -18,7 +18,8 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+//        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'com.hegazy.ebtikar.CustomInstrumentationRunner'
     }
 
     buildTypes {
@@ -93,6 +94,14 @@ android {
     }
 
 
+    testOptions {
+        unitTests {
+            returnDefaultValues = true
+            includeAndroidResources = true
+        }
+        animationsDisabled = true
+    }
+
 }
 
 dependencies {
@@ -102,9 +111,6 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 
@@ -118,11 +124,10 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version" // use -ktx for Kotlin
 
 
-    //Koin
+    // Koin for Android
     def koin_version = "2.0.1"
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -174,5 +179,30 @@ dependencies {
     //adding paging
     def paging_version = '1.0.1'
     implementation 'androidx.paging:paging-runtime:3.0.0-alpha05'
+
+    // Test helpers for LiveData
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.0'
+
+    //LeakCanary
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+
+
+    //---------------------------- TESTING ----------------------------//
+
+    androidTestImplementation "androidx.test.ext:junit:$junit_x_ext"
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation "androidx.test:runner:$testx_rules"
+    androidTestImplementation "androidx.test:rules:$testx_rules"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.0'
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
+    androidTestImplementation "org.koin:koin-test:$koin_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_contrib"
+
+    testImplementation "androidx.test.ext:junit:$junit_x_ext"
+    testImplementation 'androidx.arch.core:core-testing:2.0.0'
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockwebserver_version"
+    testImplementation "org.koin:koin-test:$koin_version"
+    testImplementation "io.mockk:mockk:$mockk_version"
+
 
 }
